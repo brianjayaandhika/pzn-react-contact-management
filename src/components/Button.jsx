@@ -1,0 +1,30 @@
+import { BsPersonFillAdd } from "react-icons/bs";
+
+export default function Button({
+  variant,
+  text,
+  IconComponent,
+  handleClick,
+  type,
+  disabled,
+  customStyle,
+}) {
+  let buttonStyle =
+    variant === "blue"
+      ? "bg-blue-800 hover:bg-blue-800/80"
+      : variant === "red"
+      ? "bg-red-600 hover:bg-red-600/80"
+      : "bg-gray-700 hover:bg-gray-700/80";
+
+  return (
+    <button
+      disabled={disabled}
+      type={type}
+      onClick={handleClick ?? handleClick}
+      className={`w-full px-4 flex gap-2 justify-center items-center align-middle py-2 rounded-md mt-2 mb-4 cursor-pointer hover:-translate-y-[2px] ease-in duration-100 ${buttonStyle} ${customStyle}`}
+    >
+      {IconComponent ? <IconComponent size="16px" /> : null}
+      {text && <p className="text-sm font-semibold">{text}</p>}
+    </button>
+  );
+}
