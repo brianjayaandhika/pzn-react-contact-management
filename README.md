@@ -1,16 +1,36 @@
-# React + Vite
+help me create more for the roadmap,
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Contact Management App ✅
 
-Currently, two official plugins are available:
+A simple, contact management app built with React + Vite + Tailwind.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features / API
 
-## React Compiler
+- User
+  - Register
+  - Login
+  - Logout
+  - Get Current User Detail
+  - Update User
+- Contact
+  - Create Contact
+  - Get All Contact with Pagination
+  - Get Specific Contact
+  - Update Contact
+  - Remove Contact
+  - Search Contact
+- Address
+  - Create Address
+  - Get All Address
+  - Update Address
+  - Remove Address
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Roadmap
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Convert to Typescript
+- Convert to NextJs
+- Implement Refresh Token
+- Implement Dark / Light Mode
+- Implement Media Storage for contact image, user image
+- Implement email sender
+- Intregate a new feature - Categorized To Do List app
