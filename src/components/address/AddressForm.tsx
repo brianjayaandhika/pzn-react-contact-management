@@ -7,17 +7,36 @@ import { useNavigate } from "react-router";
 import { BiFlag } from "react-icons/bi";
 import { GiIsland } from "react-icons/gi";
 import PageTitle from "../PageTitle";
+import { Address } from "@/lib/api/address/address.types";
+import { Contact } from "@/lib/api/contact/contact.types";
+
+type Props = {
+  handleSubmit: (
+    street: string,
+    city: string,
+    province: string,
+    country: string,
+    postalCode: string
+  ) => void;
+  contactId: string;
+  address?: Address;
+  title: string;
+  icon: React.ComponentType;
+  btnText: string;
+  btnIcon: React.ComponentType;
+  contact: Contact;
+};
 
 export default function AddressForm({
   handleSubmit,
   contactId,
-  address = null,
+  address,
   title,
   icon,
   btnText,
   btnIcon,
   contact,
-}) {
+}: Props) {
   const navigate = useNavigate();
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");

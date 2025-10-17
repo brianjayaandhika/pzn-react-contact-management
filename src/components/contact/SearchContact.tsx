@@ -8,7 +8,13 @@ import {
 import InputLabel from "../InputLabel";
 import Button from "../Button";
 
-export default function SearchContact({ handleSearch, handleClear }) {
+export default function SearchContact({
+  handleSearch,
+  handleClear,
+}: {
+  handleSearch: (name: string, email: string, phone: string) => Promise<void>;
+  handleClear: () => void;
+}) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

@@ -16,6 +16,14 @@ function getToken(): string | null {
   }
 }
 
+function isAuthRoute(path: string): boolean {
+  const protectedPrefixes = ["/auth", "/users"];
+  for (const p of protectedPrefixes) {
+    if (path.includes(p)) return true;
+  }
+  return false;
+}
+
 export async function httpJson<T>(
   path: string,
   init?: RequestInit
@@ -31,6 +39,10 @@ export async function httpJson<T>(
 
   // some endpoints may return 204 with no body
   if (res.status === 204) return undefined as unknown as T;
+  if (!isAuthRoute(path) && res.status === 401) {
+    window.location.assign("/login");
+    return undefined as unknown as T;
+  }
 
   const text = await res.text();
   const json = text ? (JSON.parse(text) as T) : ({} as T);

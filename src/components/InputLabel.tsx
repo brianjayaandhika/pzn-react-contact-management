@@ -1,5 +1,3 @@
-import { ChangeEventHandler } from "react";
-
 type Props = {
   IconComponent: React.ComponentType<{
     size?: string;
@@ -8,12 +6,12 @@ type Props = {
   mapper: string;
   text: string;
   type: string;
-  placeholderText: string;
-  value: string;
-  isRequired: boolean;
+  placeholderText?: string;
+  value?: string;
+  isRequired?: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  fontSize: string;
-  customStyle: string;
+  fontSize?: string;
+  customStyle?: string;
 };
 
 export default function InputLabel({

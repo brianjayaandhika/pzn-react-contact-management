@@ -1,7 +1,11 @@
 import { IoMdAdd } from "react-icons/io";
 import { useNavigate } from "react-router";
 
-export default function CreateAddressCard({ contactId }) {
+export default function CreateAddressCard({
+  contactId,
+}: {
+  contactId: string;
+}) {
   const navigate = useNavigate();
 
   return (

@@ -4,12 +4,18 @@ import Button from "../Button";
 import { FiDelete } from "react-icons/fi";
 import getRandomColor from "../../helpers/getRandomColor";
 import { GiIsland } from "react-icons/gi";
+import { Address } from "@/lib/api/address/address.types";
 
 export default function AddressCard({
   address,
   handleClick = () => {},
   handleEdit,
   handleDelete,
+}: {
+  address: Address;
+  handleClick?: () => void;
+  handleEdit: () => void;
+  handleDelete: () => void;
 }) {
   return (
     <div className="w-full min-h-full bg-gray-800 rounded-2xl border outline-dashed outline-1 outline-gray-700 border-gray-700 flex flex-col items-center align-middle gap-2 p-4 hover:-translate-y-[2px] hover:bg-gray-700/50 duration-150 ease-in-out">

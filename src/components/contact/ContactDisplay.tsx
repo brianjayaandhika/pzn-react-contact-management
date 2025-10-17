@@ -1,8 +1,15 @@
 import { BiEdit } from "react-icons/bi";
 import { FaMailBulk, FaPhone, FaUser, FaUserTag } from "react-icons/fa";
 import Button from "../Button";
+import { Contact } from "@/lib/api/contact/contact.types";
 
-export default function ContactDisplay({ contact, handleNavigate }) {
+export default function ContactDisplay({
+  contact,
+  handleNavigate,
+}: {
+  contact: Contact;
+  handleNavigate: (path: string) => void;
+}) {
   return (
     <div className="w-full grid gap-4 lg:grid-cols-2 grid-cols-1">
       <div className="w-full flex gap-4 flex-col justify-center items-center align-middle col-span-2 mb-4">

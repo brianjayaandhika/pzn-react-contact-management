@@ -7,15 +7,17 @@ import { BiEdit } from "react-icons/bi";
 import { MdEditNote } from "react-icons/md";
 import { GetAddress, UpdateAddress } from "@/lib/api/address/address.api";
 import { GetContact } from "@/lib/api/contact/contact.api";
+import { Address } from "@/lib/api/address/address.types";
+import { Contact } from "@/lib/api/contact/contact.types";
 
 export default function EditAddressPage() {
   const navigate = useNavigate();
   const { contactId, addressId } = useParams();
-  const [address, setAddress] = useState({});
-  const [contact, setContact] = useState({});
+  const [address, setAddress] = useState<Address | null>(null);
+  const [contact, setContact] = useState<Contact | null>(null);
 
   async function fetchAddressDetail() {
-    const response = await GetAddress(contactId, addressId);
+    const response = await GetAddress(contactId!, addressId);
 
     if (response.data) {
       setAddress(response.data);
@@ -30,13 +32,13 @@ export default function EditAddressPage() {
   }, []);
 
   async function handleUpdateAddress(
-    street,
-    city,
-    province,
-    country,
-    postalCode
+    street: string,
+    city: string,
+    province: string,
+    country: string,
+    postalCode: string
   ) {
-    const response = await UpdateAddress(contactId, addressId, {
+    const response = await UpdateAddress(contactId!, addressId!, {
       street,
       city,
       province,
@@ -46,7 +48,6 @@ export default function EditAddressPage() {
 
     if (response.data) {
       await successAlert("Update Address Success");
-
       navigate(`/dashboard/contact/${contactId}`);
     } else {
       await errorAlert("Error: " + response.errors);
@@ -76,11 +77,11 @@ export default function EditAddressPage() {
       />
       <AddressForm
         handleSubmit={handleUpdateAddress}
-        contactId={contactId}
-        address={address}
+        contactId={contactId!}
+        address={address!}
         title="Update address"
         icon={MdEditNote}
-        contact={contact}
+        contact={contact!}
         btnText={"Save Changes"}
         btnIcon={BiEdit}
       />

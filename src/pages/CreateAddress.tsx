@@ -7,20 +7,21 @@ import { RiUserAddLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { GetContact } from "@/lib/api/contact/contact.api";
+import { Contact } from "@/lib/api/contact/contact.types";
 
 export default function CreateAddressPage() {
   const navigate = useNavigate();
   const { contactId } = useParams();
-  const [contact, setContact] = useState({});
+  const [contact, setContact] = useState<Contact | null>(null);
 
   async function handleCreateAddress(
-    street,
-    city,
-    province,
-    country,
-    postalCode
+    street: string,
+    city: string,
+    province: string,
+    country: string,
+    postalCode: string
   ) {
-    const response = await CreateAddress(contactId, {
+    const response = await CreateAddress(contactId!, {
       street,
       city,
       province,
@@ -60,10 +61,10 @@ export default function CreateAddressPage() {
       />
       <AddressForm
         handleSubmit={handleCreateAddress}
-        contactId={contactId}
+        contactId={contactId!}
         title="Add new address"
         icon={RiUserAddLine}
-        contact={contact}
+        contact={contact!}
         btnText={"Add Address"}
         btnIcon={IoMdAddCircleOutline}
       />

@@ -10,12 +10,12 @@ import { UserRegister } from "@/lib/api/user/user.api";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -33,7 +33,7 @@ export default function RegisterPage() {
       await successAlert("User created successfully");
       navigate("/login");
     } else {
-      await errorAlert(response.errors);
+      await errorAlert(response?.errors);
     }
   }
 
@@ -49,6 +49,7 @@ export default function RegisterPage() {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
         <InputLabel
+          type="text"
           IconComponent={FaUser}
           mapper="username"
           text="Username"
@@ -58,6 +59,7 @@ export default function RegisterPage() {
           handleChange={(e) => setUsername(e.target.value)}
         />
         <InputLabel
+          type="text"
           IconComponent={FaAddressCard}
           mapper="fullname"
           text="Fullname"

@@ -15,14 +15,11 @@ export default function Header() {
       cbConfirmText: "Logout success",
       cbConfirm: async () => {
         const response = await UserLogout();
-        if (response?.status === 200) {
+        if (response?.data) {
           navigate("/login");
         } else {
-          // combine into a single message string
-          await errorAlert(
-            `Logout failed${response?.status ? `: ${response.status}` : ""}`
-          );
-          throw new Error(response?.statusText || "Logout failed");
+          await errorAlert(`Logout failed: ${response?.errors}`);
+          throw new Error(response?.errors || "Logout failed");
         }
       },
     });

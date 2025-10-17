@@ -13,13 +13,23 @@ import { Address } from "@/lib/api/address/address.types";
 
 export default function ContactDetailPage() {
   const navigate = useNavigate();
-  const { contactId } = useParams();
+  const { contactId } = useParams<string>();
   const [contact, setContact] = useState<Contact | null>(null);
-  const [addresses, setAddresses] = useState<Address[] | null>(null);
+  const [addresses, setAddresses] = useState<Address[]>([]);
 
   function handleNavigate(path: string): void {
     navigate(path);
     window.scrollTo(0, 0);
+  }
+
+  async function fetchAddresses(): Promise<void> {
+    const response = await ListAddresses(contactId!);
+
+    if (response.data) {
+      setAddresses(response?.data);
+    } else {
+      await errorAlert(`Error: ${response?.errors || "Something went wrong"}`);
+    }
   }
 
   async function fetchContactData(): Promise<void> {
@@ -35,16 +45,6 @@ export default function ContactDetailPage() {
     }
   }
 
-  async function fetchAddresses(): Promise<void> {
-    const response = await ListAddresses(contactId!);
-
-    if (response.data) {
-      setAddresses(response?.data);
-    } else {
-      await errorAlert(`Error: ${response?.errors || "Something went wrong"}`);
-    }
-  }
-
   useEffect(() => {
     fetchContactData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,13 +56,17 @@ export default function ContactDetailPage() {
       <PageTitle IconComponent={FaAddressCard} title="Contact Details" />
 
       <div className="w-full h-full p-6 rounded-2xl border-2 border-gray-700 bg-gray-800 flex flex-col gap-4">
-        <ContactDisplay contact={contact} handleNavigate={handleNavigate} />
-        <AddressSection
-          contactId={contactId}
-          addresses={addresses}
-          handleNavigate={handleNavigate}
-          fetchAddresses={fetchAddresses}
-        />
+        {contact && (
+          <ContactDisplay contact={contact} handleNavigate={handleNavigate} />
+        )}
+        {contactId && (
+          <AddressSection
+            contactId={contactId}
+            addresses={addresses}
+            handleNavigate={handleNavigate}
+            fetchAddresses={fetchAddresses}
+          />
+        )}
       </div>
     </div>
   );

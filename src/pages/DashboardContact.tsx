@@ -7,13 +7,19 @@ import SearchContact from "../components/contact/SearchContact";
 import CreateContactCard from "../components/contact/CreateContactCard";
 import ContactCard from "../components/contact/ContactCard";
 import { DeleteContact, SearchContacts } from "@/lib/api/contact/contact.api";
+import { Contact } from "@/lib/api/contact/contact.types";
+import { Paging } from "@/lib/api/http/http.types";
 
 export default function DashboardContactPage() {
   const navigate = useNavigate();
-  const [contacts, setContacts] = useState([]);
-  const [pagination, setPagination] = useState([]);
-  const [searchedPagination, setSearchedPagination] = useState([]);
-  const [searchedContacts, setSearchedContacts] = useState(contacts);
+  const [contacts, setContacts] = useState<Contact[] | null>(null);
+  const [pagination, setPagination] = useState<Paging | null>(null);
+  const [searchedContacts, setSearchedContacts] = useState<Contact[] | null>(
+    contacts
+  );
+  const [searchedPagination, setSearchedPagination] = useState<Paging | null>(
+    null
+  );
   const [isSearching, setIsSearching] = useState(false);
   const [page, setPage] = useState(0);
   const size = 5;
@@ -24,12 +30,10 @@ export default function DashboardContactPage() {
 
   const listToRender = useMemo(() => {
     const render = isSearching ? searchedContacts : contacts;
-    console.log(render);
-    console.log(isSearching);
     return render;
   }, [isSearching, searchedContacts, contacts]);
 
-  async function fetchContact(name = null, email = null, phone = null) {
+  async function fetchContact(name?: string, email?: string, phone?: string) {
     if (name || email || phone) {
       setIsSearching(true);
     }
@@ -42,7 +46,7 @@ export default function DashboardContactPage() {
       size,
     });
 
-    if (response.data) {
+    if (response.data && response.paging) {
       if (!name && !email && !phone) {
         setContacts(response.data);
         setPagination(response.paging);
@@ -62,11 +66,11 @@ export default function DashboardContactPage() {
     setSearchedContacts([]);
   }
 
-  function handleNavigate(path) {
+  function handleNavigate(path: string) {
     navigate(path);
   }
 
-  async function handleDelete(contact) {
+  async function handleDelete(contact: Contact) {
     await confirmAlert({
       message: `Delete ${contact.firstName} ${contact.lastName} from contacts?`,
       confirmText: "Delete",
@@ -96,9 +100,10 @@ export default function DashboardContactPage() {
       <SearchContact handleSearch={fetchContact} handleClear={handleClear} />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <CreateContactCard />
-        {listToRender.length < 1 ? (
+        {listToRender && listToRender.length < 1 ? (
           <div>Empty Contacts...</div>
         ) : (
+          listToRender &&
           listToRender.map((contact) => (
             <ContactCard
               handleClick={(e) => {
@@ -118,7 +123,11 @@ export default function DashboardContactPage() {
           ))
         )}
       </div>
-      <Pagination pagination={paginationRender} setPage={setPage} page={page} />
+      <Pagination
+        pagination={paginationRender!}
+        setPage={setPage}
+        page={page}
+      />
     </div>
   );
 }

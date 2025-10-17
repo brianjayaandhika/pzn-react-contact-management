@@ -11,11 +11,11 @@ export const successAlert = async (
 };
 
 export const errorAlert = async (
-  message: string
+  message: string = "Something went wrong... "
 ): Promise<SweetAlertResult<any>> => {
   return Swal.fire({
     title: "Oops..",
-    text: message || "Something went wrong...",
+    text: message,
     icon: "error",
   });
 };
@@ -37,10 +37,10 @@ export const confirmAlert = async ({
   cbConfirmText = "Done",
   cbConfirm,
 }: {
-  message: string;
-  confirmText: string;
-  cancelText: string;
-  cbConfirmText: string;
+  message?: string;
+  confirmText?: string;
+  cancelText?: string;
+  cbConfirmText?: string;
   cbConfirm: () => Promise<void> | void;
 }) => {
   await Swal.fire({

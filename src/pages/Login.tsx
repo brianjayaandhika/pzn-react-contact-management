@@ -12,19 +12,17 @@ import { UserLogin } from "@/lib/api/user/user.api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [_, setToken] = useLocalStorage("token", null);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [_, setToken] = useLocalStorage<string | null>("token", null);
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const response = await UserLogin({
       username,
       password,
     });
-
-    console.log(response);
 
     if (response.data) {
       await successAlert("Login Success");
@@ -47,6 +45,7 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
         <InputLabel
+          type="text"
           IconComponent={FaUser}
           mapper="username"
           text="Username"
@@ -71,6 +70,7 @@ export default function LoginPage() {
           text="Sign In"
           variant="blue"
           disabled={!username || !password}
+          customStyle="disabled:bg-gray-400!"
         />
       </form>
       <div className="flex gap-1 text-xs">

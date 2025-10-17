@@ -9,7 +9,13 @@ import { CreateContact } from "@/lib/api/contact/contact.api";
 export default function CreateContactPage() {
   const navigate = useNavigate();
 
-  async function handleCreateContact(e, firstName, lastName, email, phone) {
+  async function handleCreateContact(
+    e: React.FormEvent,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string
+  ) {
     e.preventDefault();
 
     const response = await CreateContact({

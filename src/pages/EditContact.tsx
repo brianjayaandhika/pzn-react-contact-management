@@ -1,15 +1,16 @@
-import { FaArrowCircleLeft, FaMailBulk, FaUserTag } from "react-icons/fa";
+import { FaArrowCircleLeft } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import { GetContact, UpdateContact } from "../lib/api/contact/contact.api";
 import { errorAlert, successAlert } from "../helpers/AlertHelper";
 import ContactForm from "../components/contact/ContactForm";
 import { BiEdit, BiSave } from "react-icons/bi";
 import { useEffect, useState } from "react";
+import { Contact } from "@/lib/api/contact/contact.types";
 
 export default function EditContactPage() {
   const navigate = useNavigate();
   const { contactId } = useParams();
-  const [contact, setContact] = useState({});
+  const [contact, setContact] = useState<Contact | null>(null);
 
   async function fetchContactData() {
     const response = await GetContact(contactId);
@@ -21,10 +22,16 @@ export default function EditContactPage() {
     }
   }
 
-  async function handleEditContact(e, firstName, lastName, email, phone) {
+  async function handleEditContact(
+    e: React.FormEvent,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string
+  ) {
     e.preventDefault();
 
-    const response = await UpdateContact(contactId, {
+    const response = await UpdateContact(contactId!, {
       firstName,
       lastName,
       email,
@@ -60,7 +67,7 @@ export default function EditContactPage() {
         handleSubmit={handleEditContact}
         buttonText="Save Changes"
         buttonIcon={BiSave}
-        contact={contact}
+        contact={contact!}
       />
     </div>
   );

@@ -5,6 +5,16 @@ import Button from "../Button";
 import { FiDelete } from "react-icons/fi";
 import getRandomColor from "../../helpers/getRandomColor";
 
+type Props = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  handleClick: (e: React.MouseEvent<HTMLElement>) => void;
+  handleEdit: () => void;
+  handleDelete: () => void;
+};
+
 export default function ContactCard({
   firstName,
   lastName,
@@ -13,7 +23,7 @@ export default function ContactCard({
   handleClick,
   handleEdit,
   handleDelete,
-}) {
+}: Props) {
   return (
     <div className="w-full min-h-full h-[300px] bg-gray-800 rounded-2xl border outline-dashed outline-1 outline-gray-700 border-gray-700 flex flex-col justify-center items-center align-middle gap-2 p-4 cursor-pointer hover:-translate-y-[2px] hover:bg-gray-800/80 duration-150 ease-in-out">
       <div onClick={handleClick} className="flex flex-col gap-4 ">

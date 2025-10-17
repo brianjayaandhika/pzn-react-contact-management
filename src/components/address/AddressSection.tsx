@@ -3,21 +3,27 @@ import CreateAddressCard from "./CreateAddressCard";
 import AddressCard from "./AddressCard";
 import { DeleteAddress } from "../../lib/api/address/address.api";
 import { confirmAlert } from "../../helpers/AlertHelper";
+import { Address } from "@/lib/api/address/address.types";
 
 export default function AddressSection({
   contactId,
   addresses,
   handleNavigate,
   fetchAddresses,
+}: {
+  contactId: string;
+  addresses: Address[];
+  handleNavigate: (path: string) => void;
+  fetchAddresses: () => Promise<void>;
 }) {
-  async function handleDelete(addressId) {
+  async function handleDelete(addressId: string) {
     await confirmAlert({
       message: `Delete this address?`,
       confirmText: "Delete",
       cancelText: "Cancel",
       cbConfirmText: "Delete Successful",
       cbConfirm: async () => {
-        const response = await DeleteAddress(contactId, addressId);
+        const response = await DeleteAddress(contactId!, addressId);
 
         if (response.data) {
           await fetchAddresses();

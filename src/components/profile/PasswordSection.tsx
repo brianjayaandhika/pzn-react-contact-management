@@ -7,9 +7,13 @@ import { LuLock } from "react-icons/lu";
 import { useState } from "react";
 import { errorAlert } from "../../helpers/AlertHelper";
 
-export default function PasswordSection({ handleEdit }) {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+export default function PasswordSection({
+  handleEdit,
+}: {
+  handleEdit: (password: string) => void;
+}) {
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   return (
     <div className="flex flex-col gap-3 w-full p-4 bg-gray-800 border border-gray-700 rounded-xl hover:-translate-y-1 transition-all duration-100 ease-in-out">

@@ -19,10 +19,13 @@ export async function UserRegister(
 export async function UserLogin(
   request: LoginRequest
 ): Promise<WebResponse<LoginData>> {
-  return httpJson("/api/auth/login", {
+  const result: any = httpJson("/api/auth/login", {
     method: "POST",
     body: JSON.stringify(request),
   });
+
+  console.log(result);
+  return result;
 }
 
 export async function GetCurrentUser(): Promise<WebResponse<User>> {

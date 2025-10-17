@@ -6,6 +6,22 @@ import { MdCancel } from "react-icons/md";
 import { useNavigate } from "react-router";
 import Button from "../Button";
 import PageTitle from "../PageTitle";
+import { Contact } from "@/lib/api/contact/contact.types";
+
+type Props = {
+  title: string;
+  handleSubmit: (
+    e: React.FormEvent<HTMLFormElement>,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string
+  ) => void;
+  IconComponent: React.ComponentType;
+  buttonText: string;
+  buttonIcon: React.ComponentType;
+  contact?: Contact | null;
+};
 
 export default function ContactForm({
   title,
@@ -14,12 +30,12 @@ export default function ContactForm({
   buttonText,
   buttonIcon,
   contact = null,
-}) {
+}: Props) {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
 
   useEffect(() => {
     if (contact) {
