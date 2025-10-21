@@ -24,7 +24,6 @@ export async function UserLogin(
     body: JSON.stringify(request),
   });
 
-  console.log(result);
   return result;
 }
 
