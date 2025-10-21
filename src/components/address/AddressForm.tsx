@@ -71,10 +71,10 @@ export default function AddressForm({
           </div>
           <div className="flex flex-col">
             <p className="text-lg font-bold">
-              {contact.firstName} {contact.lastName}
+              {contact?.firstName} {contact?.lastName}
             </p>
             <p className="text-xs text-white/60">
-              {contact.email} • {contact.phone}
+              {contact?.email} • {contact?.phone}
             </p>
           </div>
         </div>
