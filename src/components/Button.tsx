@@ -28,7 +28,10 @@ export default function Button({
     <button
       disabled={disabled}
       type={type}
-      onClick={handleClick}
+      onClick={(event) => {
+        event.stopPropagation();
+        handleClick(event);
+      }}
       className={`w-full px-4 flex gap-2 justify-center items-center align-middle py-2 rounded-md mt-2 mb-4 cursor-pointer hover:-translate-y-[2px] ease-in duration-100 ${buttonStyle} ${customStyle}`}
     >
       {IconComponent ? <IconComponent size="16px" /> : null}

@@ -6,5 +6,6 @@ export function buildQuery(params?: Record<string, unknown>): string {
 		search.append(k, String(v))
 	}
 	const qs = search.toString()
+
 	return qs ? `?${qs}` : ''
 }
