@@ -42,7 +42,7 @@ export default function CreateContactPage() {
 
   return (
     <div className="flex flex-col gap-4 w-full h-full min-h-screen px-32 mt-20 justify-start items-start align-">
-      <BackButton text="Back to Contacts" path="/dashboard/contact" />
+      <BackButton text="Back to Dashboard" path="/dashboard" />
       <ContactForm
         title="Create New Contact"
         IconComponent={RiUserAddLine}

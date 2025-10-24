@@ -12,9 +12,15 @@ export async function CreateTask(
 }
 
 export async function GetAllTask(): Promise<WebResponse<Task[]>> {
-  return httpJsonAuth("/api/tasks", {
-    method: "GET",
-  });
+  return httpJsonAuth(
+    "/api/tasks",
+    {
+      method: "GET",
+    },
+    {
+      timeStatus: "ACTIVE",
+    }
+  );
 }
 
 export async function GetTask(taskId?: string): Promise<WebResponse<Task>> {

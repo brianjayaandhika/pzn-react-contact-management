@@ -14,6 +14,7 @@ import EditAddressPage from "./pages/EditAddress.jsx";
 import ProfilePage from "./pages/Profile.jsx";
 import NotFound from "./pages/NotFound";
 import DashboardPage from "./pages/DashboardPage.js";
+import CreateTaskPage from "./pages/CreateTask";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")!).render(
           <Route index element={<DashboardPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="create_contact" element={<CreateContactPage />} />
+          <Route path="create_task" element={<CreateTaskPage />} />
 
           {/* Contact Page */}
           <Route path="contact">
@@ -47,19 +49,13 @@ createRoot(document.getElementById("root")!).render(
           {/* Create Address Page */}
           <Route path="create_address">
             <Route index element={<Navigate to="/dashboard" />} />
-            <Route
-              path=":contactId"
-              element={<CreateAddressPage />}
-            />
+            <Route path=":contactId" element={<CreateAddressPage />} />
           </Route>
 
           {/* Edit Address Page */}
           <Route path="edit_address">
             <Route index element={<Navigate to="/dashboard" />} />
-            <Route
-              path=":contactId/:addressId"
-              element={<EditAddressPage />}
-            />
+            <Route path=":contactId/:addressId" element={<EditAddressPage />} />
           </Route>
         </Route>
       </Routes>
