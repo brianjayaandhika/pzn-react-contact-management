@@ -1,3 +1,5 @@
+import { buildQuery } from "./query";
+
 function getBase(): string {
   // If your env already includes '/api', leave it. Otherwise this keeps '/api' per spec.
   const base = import.meta.env.VITE_API_PATH || "";
@@ -24,15 +26,23 @@ function isAuthRoute(path: string): boolean {
   return false;
 }
 
+function buildUrl(path: string, queryParam?: Record<string, unknown>): string {
+  const queryString = queryParam ? buildQuery(queryParam) : "";
+  return `${getBase()}${path}${queryString ? `${queryString}` : ""}`;
+}
+
 export async function httpJson<T>(
   path: string,
-  init?: RequestInit
+  init?: RequestInit,
+  queryParam?: Record<string, unknown>
 ): Promise<T> {
-  const res = await fetch(`${getBase()}${path}`, {
+  const url = buildUrl(path, queryParam ? queryParam : undefined);
+
+  const res = await fetch(url, {
     ...init,
     headers: {
-      "Content-Type": "application/json",
       Accept: "application/json",
+      ...(init?.body ? { "Content-Type": "application/json" } : {}),
       ...(init?.headers ?? {}),
     },
   });
@@ -57,14 +67,19 @@ export async function httpJson<T>(
 
 export async function httpJsonAuth<T>(
   path: string,
-  init?: RequestInit
+  init?: RequestInit,
+  queryParam?: Record<string, unknown>
 ): Promise<T> {
   const token = getToken();
-  return httpJson<T>(path, {
-    ...init,
-    headers: {
-      ...(init?.headers ?? {}),
-      "X-API-TOKEN": token ? token : "",
+  return httpJson<T>(
+    path,
+    {
+      ...init,
+      headers: {
+        ...(init?.headers ?? {}),
+        "X-API-TOKEN": token ? token : "",
+      },
     },
-  });
+    queryParam
+  );
 }
